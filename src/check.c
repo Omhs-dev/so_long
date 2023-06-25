@@ -6,12 +6,11 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 18:43:01 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/06/23 19:31:53 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/06/25 20:31:11 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
+#include "../include/so_long.h"
 
 int check_ber(char *str)
 {

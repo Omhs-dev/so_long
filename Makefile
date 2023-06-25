@@ -1,5 +1,7 @@
 NAME = so_long
 
+LIBFT = libft.a
+
 SRCS = main.c
 
 SRC_B =
@@ -10,15 +12,15 @@ INCS	= -I ./include/
 
 CC = gcc
 
-FLAGS = -g -Wall -Wextra -Werror  MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/ohamadou/homebrew/opt/glfw/lib/" #-fsanitize=address -static-libsan
+FLAGS = -g -Wall -Wextra -Werror  MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/ohamadou/homebrew/opt/glfw/lib/" -fsanitize=address -static-libsan
 
 OBJS = $(SRCS:.c=.o)
 
-OBJ_B = $(SRC_B:.c=/objs/.o)
+OBJ_B = $(SRC_B:.c=.o)
 
 $(NAME):	$(OBJS)
-		@${CC} $(FLAGS) $(SRCS) -o so_long
-		
+		@make all -C libraries/libft
+		@${CC} $(FLAGS) $(SRCS) libraries/LIBFT/$(LIBFT) -o so_long
 # $(BONUS_NAME) : $(OBJ_B)
 # 		@${CC} $(FLAGS) $(SRC_B) -o checker
 
