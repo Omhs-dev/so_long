@@ -12,7 +12,7 @@ INCS	= -I ./include/
 
 CC = gcc
 
-FLAGS = -g -Wall -Wextra -Werror  MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/ohamadou/homebrew/opt/glfw/lib/" -fsanitize=address -static-libsan
+FLAGS = -g -Wall -Wextra -Werror  MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/ohamadou/homebrew/opt/glfw/lib/" #-fsanitize=address -static-libsan
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:21:26 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/06/25 20:17:44 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/07/21 17:31:15 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,24 @@
 
 void output_img(t_game *game, void *img, int x, int y)
 {
-	mlx_image_to_window(game -> mlx, game -> win, img, x, y);
+	mlx_image_to_window(game -> mlx, img, x, y);
+}
+
+static int output_player(t_game *game, void *img, int x, int y)
+{
+	game -> x_player = x;
+	game -> x_player = y;
+	output_img(game, img, x, y);
+}
+
+static void output_exit(t_game *game, int x, int y)
+{
+	if (game -> n_collect == 0)
+	{
+		mlx_delete_image(game -> mlx, game -> exit_img);
+		game -> exit_img = mlx_load_png("../assets/wall.png");
+	}
+	output_img(game, game -> exit_img, x, y);
 }
 
 int output_map(t_game *game)
@@ -36,4 +53,5 @@ int output_map(t_game *game)
 		}
 		y++;
 	}
+	return (0);
 }
