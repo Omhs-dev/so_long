@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/25 21:06:41 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/07/21 16:49:55 by ohamadou         ###   ########.fr       */
+/*   Created: 2023/07/21 17:32:20 by ohamadou          #+#    #+#             */
+/*   Updated: 2023/07/21 17:35:36 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/so_long.h"
+#include "../include/so_long.h"
 
-int main(int argc, char **argv)
+void free_map(char **map)
 {
-	t_game game;
+	int i;
 	
-	if (argc == 2)
+	i = 0;
+	while (map[i] != '\0')
 	{
-		game.map = read_map(argv[1]);
-		if (check_map(&game) && check_ber(&game))
-		{
-			
-		}
+		free(map[i]);
+		i++;
 	}
+	free(map);
+}
+
+int exit_game(t_game *game)
+{
+	free_map(game->map);
+	free(game->mlx);
+	exit(0);
+	return (0);
 }

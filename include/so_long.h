@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:32:22 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/06/25 21:03:07 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/07/21 17:03:59 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ typedef struct s_game
 	int map_h;
 	int move;
 	int end;
+	int n_collect;
+	int n_player;
+	int n_exit;
+	int x_player;
+	int y_player;
+	int moves;
+	int endgame;
 } t_game;
 
 void output_img(t_game *game, void *img, int x, int y);
