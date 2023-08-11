@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:21:26 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/07/21 17:31:15 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:42:48 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void output_img(t_game *game, void *img, int x, int y)
 
 static int output_player(t_game *game, void *img, int x, int y)
 {
-	game -> x_player = x;
-	game -> x_player = y;
+	game -> x_p = x;
+	game -> y_p = y;
 	output_img(game, img, x, y);
 }
 
@@ -47,8 +47,14 @@ int output_map(t_game *game)
 		{
 			if (game -> map[y][x] == '1')
 				output_img(game, game -> wall_img, x * 32, y * 32);
-			if (game -> map[y][x] == '0')
+			else if (game -> map[y][x] == '0')
 				output_img(game, game -> background, x * 32, y * 32);
+			else if (game -> map[y][x] == 'P')
+				output_player(game, game -> player_img, x * 32, y * 32);
+			else if (game -> map[y][x] == 'C')
+				output_img(game, game -> collect_img, x * 32, y * 32);
+			else if (game -> map[y][x] == 'E')
+				output_exit(game, x, y);
 			x++;
 		}
 		y++;

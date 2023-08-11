@@ -1,40 +1,73 @@
-NAME = so_long
+# NAME = so_long
 
-LIBFT = libft.a
+# LIBFT = libft.a
 
-SRCS = main.c
+# SRCS = main.c
 
-SRC_B =
+# SRC_B =
 
-RM = rm -f
+# RM = rm -f
 
-INCS	= -I ./include/
+# INCS	= -I ./include/
 
-CC = gcc
+# CC = gcc
 
-FLAGS = -g -Wall -Wextra -Werror  MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/ohamadou/homebrew/opt/glfw/lib/" #-fsanitize=address -static-libsan
+# FLAGS = -g -Wall -Wextra -Werror  MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/ohamadou/homebrew/opt/glfw/lib/" #-fsanitize=address -static-libsan
 
-OBJS = $(SRCS:.c=.o)
+# OBJS = $(SRCS:.c=.o)
 
-OBJ_B = $(SRC_B:.c=.o)
+# OBJ_B = $(SRC_B:.c=.o)
 
-$(NAME):	$(OBJS)
-		@make all -C libraries/libft
-		@${CC} $(FLAGS) $(SRCS) libraries/LIBFT/$(LIBFT) -o so_long
-# $(BONUS_NAME) : $(OBJ_B)
-# 		@${CC} $(FLAGS) $(SRC_B) -o checker
+# $(NAME):	$(OBJS)
+# 		@make all -C libraries/libft
+# 		@${CC} $(FLAGS) $(SRCS) libraries/LIBFT/$(LIBFT) -o so_long
+# # $(BONUS_NAME) : $(OBJ_B)
+# # 		@${CC} $(FLAGS) $(SRC_B) -o checker
 
-all: $(NAME)
+# all: $(NAME)
 
-bonus: $(BONUS_NAME)
+# bonus: $(BONUS_NAME)
+
+# clean:
+# 		@$(RM) $(OBJS) $(OBJ_B)
+
+# fclean: clean
+# 		$(RM) $(NAME) $(BONUS_NAME)
+
+# re: fclean all
+
+
+# .PHONY : all clean fclean re bonus
+
+
+NAME	:= Game
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+LIBMLX	:= ./MLX42
+
+HEADERS	:= -I ./include -I $(LIBMLX)/include
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+SRCS	:= main.c src/exit_game.c src/initiation.c src/keypress.c \
+			src/output_elmts.c src/playgame.c src/read_map.c \
+OBJS	:= ${SRCS:.c=.o}
+
+all: libmlx $(NAME)
+
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+
+$(NAME): $(OBJS)
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-		@$(RM) $(OBJS) $(OBJ_B)
+	@rm -rf $(OBJS)
+	@rm -rf $(LIBMLX)/build
 
 fclean: clean
-		$(RM) $(NAME) $(BONUS_NAME)
+	@rm -rf $(NAME)
 
-re: fclean all
+re: clean all
 
-
-.PHONY : all clean fclean re bonus
+.PHONY: all, clean, fclean, re, libmlx
