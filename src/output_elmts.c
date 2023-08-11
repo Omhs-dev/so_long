@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:21:26 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/02 17:42:48 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:19:17 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void output_img(t_game *game, void *img, int x, int y)
 	mlx_image_to_window(game -> mlx, img, x, y);
 }
 
-static int output_player(t_game *game, void *img, int x, int y)
+static int output_player(t_game *game)
 {
 	game -> x_p = x;
 	game -> y_p = y;

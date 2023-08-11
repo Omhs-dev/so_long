@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:32:22 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/02 19:28:36 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:46:35 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,22 @@
 typedef struct s_game
 {
 	char **map;
-	void *mlx;
+	char **map_c;
+	char **name;
+	mlx_t *mlx;
 	void *win;
 	void *background;
-	void *wall_img;
-	void *player_img;
-	void *collect_img;
-	void *exit_img;
+	mlx_image_t *wall_img;
+	mlx_image_t *player_img;
+	mlx_image_t *collect_img;
+	mlx_image_t *exit_img;
 	int map_w;
 	int map_h;
 	int move;
+	int moves;
 	int end;
 	int n_collect;
+	int collect;
 	int n_player;
 	int n_exit;
 	int x_p;

@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:34:38 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/02 19:22:23 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:51:48 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,12 @@ char	**read_map(char *p)
 	free(holder_map);
 	close(fd);
 	return (map);
+}
+
+int count_collect(t_game *data)
+{
+	int i;
+
+	i = check_count(data, 'C');
+	return (i);
 }

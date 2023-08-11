@@ -6,23 +6,27 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 21:06:41 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/02 19:29:46 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:56:10 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/so_long.h"
 
-int main(int argc, char **argv)
+int	main( int argc, char **argv)
 {
-	t_game game;
-	
-	if (argc == 2)
+	int	i;
+
+	if (argc != 2)
 	{
-		game.map = read_map(argv[1]);
-		if (check_map(&game) && check_ber(&game))
-		{
-			game_init(&game);
-		}
+		write(1, "Please give valid .ber file", 27);
+		return (0);
 	}
+	i = check_filename(argv[1]);
+	if (i == 1)
+	{
+		printf("Error\nmap invalid\n");
+		return (0);
+	}
+	start(argv[1]);
 	return (0);
 }
