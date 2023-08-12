@@ -6,129 +6,128 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 17:49:57 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/02 18:44:38 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/12 06:02:18 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-static void player_update(char key, t_game *game)
+void	key_p_w(t_game *game)
 {
-	mlx_delete_image(game->mlx, game->player_img);
-	if (key == 'w')
-		game->player_img = mlx_load_png("../assets/luffy.png");
-	else if (key == 's')
-		game->player_img = mlx_load_png("../assets/luffy.png");
-	else if (key == 'd')
-		game->player_img = mlx_load_png("../assets/luffy.png");
-	else if (key == 'a')
-		game->player_img = mlx_load_png("../assets/luffy.png");
-}
-
-void key_w(t_game *game)
-{
-	player_update('w', game);
-	if (game->map[game->y_p][game->x_p] == 'E'
-		&& game->n_collect == 0)
+	if (game->map[game->i - 1][game->j] != '1')
 	{
-		mlx_close_window(game->mlx);
-		game->map[game->y_p + 1][game->x_p] = '0';
+		if (game->map[game->i - 1][game->j] == 'C')
+		{
+			game->map[game->i - 1][game->j] = '0';
+			mlx_delete_image(game->mlx, game->collect_img);
+			game->collect_img = mlx_texture_to_image(game->mlx, game->collect_t);
+			game->n_collect--;
+			replacing_coll(game);
+		}
+		if (game->n_collect == 0 && game->map[game->i - 1][game->j] == 'E')
+		{
+			mlx_delete_image(game->mlx, game->player_img);
+			mlx_close_window(game->mlx);
+			return ;
+		}
+		game->i = game->i - 1;
 		game->moves++;
-		game->endgame = 1;
-		output_map(game);
-	}
-	else if (game->map[game->y_p][game->x_p] == '1'
-		|| game->map[game->y_p][game->x_p] == 'E')
-		game->y_p += 1;
-	else
-	{
-		mlx_close_window(game->mlx);
-		if (game->map[game->y_p][game->x_p] == 'C')
-			game->n_collect -= 1;
-		game->map[game->y_p][game->x_p] == 'P';
-		game->map[game->y_p + 1][game->x_p] == '0';
-		game->moves++;
-		output_map(game);
+		ft_printf("moves count:%d\n", game->moves);
+		output_win(game);
 	}
 }
 
-void key_s(t_game *game)
+void	key_p_s(t_game *game)
 {
-	player_update('s', game);
-	if (game->map[game->y_p][game->x_p] == 'E'
-		&& game->n_collect == 0)
+	if (game->map[game->i + 1][game->j] != '1')
 	{
-		mlx_close_window(game->mlx);
-		game->map[game->y_p - 1][game->x_p] = '0';
+		if (game->map[game->i + 1][game->j] == 'C')
+		{
+			game->map[game->i + 1][game->j] = '0';
+			mlx_delete_image(game->mlx, game->collect_img);
+			game->collect_img = mlx_texture_to_image(game->mlx, game->collect_t);
+			game->n_collect--;
+			replacing_coll(game);
+		}
+		if (game->n_collect == 0 && game->map[game->i + 1][game->j] == 'E')
+		{
+			mlx_delete_image(game->mlx, game->player_img);
+			mlx_close_window(game->mlx);
+			return ;
+		}
+		game->i = game->i + 1;
 		game->moves++;
-		game->endgame = 1;
-		output_map(game);
-	}
-	else if (game->map[game->y_p][game->x_p] == '1'
-		|| game->map[game->y_p][game->x_p] == 'E')
-		game->y_p -= 1;
-	else
-	{
-		mlx_close_window(game->mlx);
-		if (game->map[game->y_p][game->x_p] == 'C')
-			game->n_collect -= 1;
-		game->map[game->y_p][game->x_p] == 'P';
-		game->map[game->y_p - 1][game->x_p] == '0';
-		game->moves++;
-		output_map(game);
+		ft_printf("moves count:%d\n", game->moves);
+		output_win(game);
 	}
 }
 
-void key_d(t_game *game)
+void	key_p_a(t_game *game)
 {
-	player_update('d', game);
-	if (game->map[game->y_p][game->x_p] == 'E'
-		&& game->n_collect == 0)
+	if (game->map[game->i][game->j - 1] != '1')
 	{
-		mlx_close_window(game->mlx);
-		game->map[game->y_p - 1][game->x_p] = '0';
+		if (game->map[game->i][game->j] == 'C')
+		{
+			game->map[game->i][game->j] = '0';
+			mlx_delete_image(game->mlx, game->collect_img);
+			game->collect_img = mlx_texture_to_image(game->mlx, game->collect_t);
+			game->n_collect--;
+			replacing_coll(game);
+		}	
+		if (game->n_collect == 0 && game->map[game->i][game->j - 1] == 'E')
+		{
+			mlx_delete_image(game->mlx, game->player_img);
+			mlx_close_window(game->mlx);
+			return ;
+		}
+		game->j = game->j - 1;
 		game->moves++;
-		game->endgame = 1;
-		output_map(game);
-	}
-	else if (game->map[game->y_p][game->x_p] == '1'
-		|| game->map[game->y_p][game->x_p] == 'E')
-		game->y_p -= 1;
-	else
-	{
-		mlx_close_window(game->mlx);
-		if (game->map[game->y_p][game->x_p] == 'C')
-			game->n_collect -= 1;
-		game->map[game->y_p][game->x_p] == 'P';
-		game->map[game->y_p - 1][game->x_p] == '0';
-		game->moves++;
-		output_map(game);
+		ft_printf("moves count:%d\n", game->moves);
+		output_win(game);
 	}
 }
 
-void key_a(t_game *game)
+void	key_p_d(t_game *game)
 {
-	player_update('a', game);
-	if (game->map[game->y_p][game->x_p] == 'E'
-		&& game->n_collect == 0)
+	if (game->map[game->i][game->j + 1] != '1')
 	{
-		mlx_close_window(game->mlx);
-		game->map[game->y_p + 1][game->x_p] = '0';
+		if (game->map[game->i][game->j + 1] == 'C')
+		{
+			game->map[game->i][game->j + 1] = '0';
+			mlx_delete_image(game->mlx, game->collect_img);
+			game->collect_img = mlx_texture_to_image(game->mlx, game->collect_t);
+			game->n_collect--;
+			replacing_coll(game);
+		}
+		if (game->n_collect == 0 && game->map[game->i][game->j + 1] == 'E')
+		{
+			mlx_delete_image(game->mlx, game->player_img);
+			mlx_close_window(game->mlx);
+			return ;
+		}
+		game->j = game->j + 1;
 		game->moves++;
-		game->endgame = 1;
-		output_map(game);
+		ft_printf("moves count:%d\n", game->moves);
+		output_win(game);
 	}
-	else if (game->map[game->y_p][game->x_p] == '1'
-		|| game->map[game->y_p][game->x_p] == 'E')
-		game->y_p += 1;
-	else
+}
+
+void	replacing_coll(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (game->map[i])
 	{
-		mlx_close_window(game->mlx);
-		if (game->map[game->y_p][game->x_p] == 'C')
-			game->n_collect -= 1;
-		game->map[game->y_p][game->x_p] == 'P';
-		game->map[game->y_p + 1][game->x_p] == '0';
-		game->moves++;
-		output_map(game);
+		j = 0;
+		while (game->map[i][j])
+		{
+			if (game->map[i][j] == 'C')
+				mlx_image_to_window(game->mlx, game->collect_img, j * 60, \
+					i * 84);
+			j++;
+		}
+		i++;
 	}
 }

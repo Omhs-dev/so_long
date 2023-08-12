@@ -6,113 +6,148 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 16:07:21 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/11 17:54:48 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:19:16 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-static int is_rectangular(char **map)
+int is_rectangular(t_game *game)
 {
 	int i;
-	
+
 	i = 1;
-	if (!map)
-		return (0);
-	while (map[i] != '\0')
+	while (game->map[i])
 	{
-		if (ft_strlen(map[i]) != ft_strlen(map[0]))
-			return (0);
+		if (ft_strlen(game->map[i - 1]) != ft_strlen(game->map[i]))
+			return (free_map(game->map), 0);
 		i++;
 	}
 	return (1);
 }
 
-static int is_wall(char **map)
+
+// int is_pec(t_game *game)
+// {
+// 	int i;
+// 	int j;
+
+// 	game -> n_collect = 0;
+// 	game -> n_player = 0;
+// 	game -> n_exit = 0;
+// 	i = 0;
+// 	while (game -> map[i])
+// 	{
+// 		j = 0;
+// 		while (game -> map[i][j])
+// 		{
+// 			if (game -> map[i][j] == 'P')
+// 				game -> n_player++;
+// 			else if (game -> map[i][j] == 'E')
+// 				game -> n_exit++;
+// 			else if (game -> map[i][j] == 'C')
+// 				game -> n_collect++;
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	if (game -> n_player != 1 || game -> n_exit == 0 || game -> n_collect == 0)
+// 		return (0);
+// 	return (1);
+// }
+
+int	is_validate(t_game *game, char c)
 {
 	int	i;
 	int	j;
-	int	len;
+	int	x;
 
-	j = 0;
+	x = 0;
 	i = 0;
-	while (map[i] != '\0')
-		i++;
-	while (map[0][j] != '\0' && map[i - 1][j] != '\0')
+	j = 0;
+	while (game->map[i])
 	{
-		if (map[0][j] != '1' || map[i - 1][j] != '1')
+		while (game->map[i][j])
+		{
+			if (game->map[i][j] != '0' && game->map[i][j] != '1' &&
+				game->map[i][j] != 'C' && game->map[i][j] != 'P' &&
+				game->map[i][j] != 'E')
+				return (0);
+			if (game->map[i][j] == c)
+				x++;
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (x);
+}
+
+// int is_validate(t_game *game, char c)
+// {
+// 	int i;
+// 	int j;
+// 	int e;
+
+// 	i = 0;
+// 	e = 0;
+// 	j = 0;
+// 	while (game->map[i])
+// 	{
+// 		while (game->map[i][j])
+// 		{
+// 			if (game->map[i][j] != 'P' && game->map[i][j] != 'E'
+// 				&& game->map[i][j] != 'C'
+// 				&& game->map[i][j] != '0' && game->map[i][j] != '1')
+// 				return (0);
+// 			if (game->map[i][j] == c)
+// 				e++;
+// 			j++;
+// 		}
+// 		j = 0;
+// 		i++;
+// 	}
+// 	return (e);
+// }
+
+int	check_map(t_game *game, int i, int j)
+{
+	while (game->map[i] && game->map[i][j])
+	{
+		if (game->map[i][j] != '1')
 			return (0);
 		j++;
 	}
-	i = 1;
-	len = ft_strlen(map[i]);
-	while (map[i] != '\0')
+	while (game->map[i])
+		i++;
+	i--;
+	j = 0;
+	while (game->map[i] && game->map[i][j])
 	{
-		if (map[i][0] != '1' || map[i][len - 1] != '1')
+		if (game->map[i][j] != '1')
 			return (0);
-		i++;
+		j++;
 	}
 	return (1);
 }
 
-static int is_pec(t_game *game)
+int	check_map_c(t_game *game, int i, int j)
 {
-	int i;
-	int j;
-
-	game -> n_collect = 0;
-	game -> n_player = 0;
-	game -> n_exit = 0;
-	i = 0;
-	while (game -> map[i] != '\0')
+	while (game->map[i] && game->map[i][j])
 	{
-		j = 0;
-		while (game -> map[i][j] != '\0')
-		{
-			if (game -> map[i][j] == 'P')
-				game -> n_player++;
-			else if (game -> map[i][j] == 'E')
-				game -> n_exit++;
-			else if (game -> map[i][j] == 'C')
-				game -> n_collect++;
-			j++;
-		}
+		if (game->map[i][j] != '1')
+			return (0);
+		j++;
+	}
+	while (game->map[i])
 		i++;
-	}
-	if (game -> n_player != 1 || game -> n_exit == 0 || game -> n_collect == 0)
-		return (0);
-	return (1);
-}
-
-static int is_validate(char **map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (map[i] != '\0')
+	i--;
+	j = 0;
+	while (game->map[i] && game->map[i][j])
 	{
-		j = 0;
-		while (map[i][j] != '\0')
-		{
-			j = 0;
-			while (map[i][j] != '\0')
-			{
-				if (map[i][j] != 'P' && map[i][j] != 'E' && map[i][j] != 'C'
-					&& map[i][j] != '0' && map[i][j] != '1')
-					return (0);
-				j++;
-			}
-			i++;
-		}
-		return (1);
+		if (game->map[i][j] != '1')
+			return (0);
+		j++;
 	}
-}
-
-int map_checker(t_game *game)
-{
-	if (is_rectangular(game->map) && is_wall(game->map) && is_pec(game)
-		&& is_validate(game->map))
-		return (1);
-	return (0);
+	return (1);
 }

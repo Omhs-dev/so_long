@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:32:22 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/11 17:46:35 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/12 05:48:51 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_game
 {
 	char **map;
 	char **map_c;
-	char **name;
+	char *name;
 	mlx_t *mlx;
 	void *win;
 	void *background;
@@ -41,10 +41,18 @@ typedef struct s_game
 	mlx_image_t *player_img;
 	mlx_image_t *collect_img;
 	mlx_image_t *exit_img;
+	mlx_texture_t *wall_t;
+	mlx_texture_t *collect_t;
+	mlx_texture_t *exit_t;
+	mlx_texture_t *player_t;
+	mlx_texture_t *path_t;
+	mlx_image_t *line_move;
 	int map_w;
 	int map_h;
 	int move;
-	int moves;
+	int i;
+	int j;
+	char *map_move;
 	int end;
 	int n_collect;
 	int collect;
@@ -56,17 +64,35 @@ typedef struct s_game
 	int endgame;
 } t_game;
 
-void output_img(t_game *game, void *img, int x, int y);
-int output_map(t_game *game);
-char	**read_map(char *p);
+void output_img(t_game *game);
+void	read_map(t_game *p);
 void game_init(t_game *game);
 void free_map(char **map);
-int exit_game(t_game *game);
 int check_ber(char *str);
-void key_w(t_game *game);
-void key_a(t_game *game);
-void key_d(t_game *game);
-void key_s(t_game *game);
+void key_p_w(t_game *game);
+void key_p_a(t_game *game);
+void key_p_d(t_game *game);
+void key_p_s(t_game *game);
+void output_player(void *game);
+void output_win(t_game *game);
+void	output_map(t_game *game);
+void	ft_hook(mlx_key_data_t key_game, void *param);
+void check_player(t_game *game);
+int	start_game(char *game);
+void	game_path(t_game *game, int x, int y);
+int valid_path(t_game *game);
+void player_position(t_game *game);
+void	replacing_coll(t_game *game);
+int	width(char *name);
+int	height(char *name);
+int count_collect(t_game *game);
+int map_checker(t_game *game);
+void	exit_game(t_game *game);
+int is_pec(t_game *game);
+int	check_map(t_game *game, int i, int j);
+int	check_map_c(t_game *game, int i, int j);
+int is_rectangular(t_game *game);
+int is_validate(t_game *game, char c);
 
 
 #endif
