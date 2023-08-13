@@ -4,7 +4,7 @@ LIBFT = libft.a
 
 SRCS = main.c src/exit_game.c src/keypress.c \
 			src/output_elmts.c src/play_game.c src/read_map.c \
-			src/check_ber.c src/hook.c \
+			src/check_ber.c src/hook.c src/utils.c\
 			src/check_map.c \
 
 SRC_B =
@@ -29,7 +29,7 @@ $(NAME):	$(OBJS)
 
 all: $(NAME)
 
-bonus: $(BONUS_NAME)
+bonus: $(NAME)
 
 clean:
 		@$(RM) $(OBJS) $(OBJ_B)

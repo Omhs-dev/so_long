@@ -18,6 +18,7 @@
 		"ios": "c",
 		"istream": "c",
 		"locale": "c",
-		"typeinfo": "c"
+		"typeinfo": "c",
+		"algorithm": "c"
 	}
 }

@@ -6,15 +6,15 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 16:07:21 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/12 20:19:16 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/13 22:04:16 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int is_rectangular(t_game *game)
+int	is_rectangular(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (game->map[i])
@@ -26,89 +26,32 @@ int is_rectangular(t_game *game)
 	return (1);
 }
 
-
-// int is_pec(t_game *game)
-// {
-// 	int i;
-// 	int j;
-
-// 	game -> n_collect = 0;
-// 	game -> n_player = 0;
-// 	game -> n_exit = 0;
-// 	i = 0;
-// 	while (game -> map[i])
-// 	{
-// 		j = 0;
-// 		while (game -> map[i][j])
-// 		{
-// 			if (game -> map[i][j] == 'P')
-// 				game -> n_player++;
-// 			else if (game -> map[i][j] == 'E')
-// 				game -> n_exit++;
-// 			else if (game -> map[i][j] == 'C')
-// 				game -> n_collect++;
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	if (game -> n_player != 1 || game -> n_exit == 0 || game -> n_collect == 0)
-// 		return (0);
-// 	return (1);
-// }
-
 int	is_validate(t_game *game, char c)
 {
 	int	i;
 	int	j;
-	int	x;
+	int	e;
 
-	x = 0;
 	i = 0;
+	e = 0;
 	j = 0;
 	while (game->map[i])
 	{
 		while (game->map[i][j])
 		{
-			if (game->map[i][j] != '0' && game->map[i][j] != '1' &&
-				game->map[i][j] != 'C' && game->map[i][j] != 'P' &&
-				game->map[i][j] != 'E')
+			if (game->map[i][j] != 'P' && game->map[i][j] != 'E'
+				&& game->map[i][j] != 'C'
+				&& game->map[i][j] != '0' && game->map[i][j] != '1')
 				return (0);
 			if (game->map[i][j] == c)
-				x++;
+				e++;
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-	return (x);
+	return (e);
 }
-
-// int is_validate(t_game *game, char c)
-// {
-// 	int i;
-// 	int j;
-// 	int e;
-
-// 	i = 0;
-// 	e = 0;
-// 	j = 0;
-// 	while (game->map[i])
-// 	{
-// 		while (game->map[i][j])
-// 		{
-// 			if (game->map[i][j] != 'P' && game->map[i][j] != 'E'
-// 				&& game->map[i][j] != 'C'
-// 				&& game->map[i][j] != '0' && game->map[i][j] != '1')
-// 				return (0);
-// 			if (game->map[i][j] == c)
-// 				e++;
-// 			j++;
-// 		}
-// 		j = 0;
-// 		i++;
-// 	}
-// 	return (e);
-// }
 
 int	check_map(t_game *game, int i, int j)
 {
