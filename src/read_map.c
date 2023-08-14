@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:34:38 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/13 23:18:55 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/14 03:05:41 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	read_map(t_game *p)
 			break ;
 		holder = holder_map;
 		holder_map = ft_strjoin(holder, line);
+		if (next_line_true(holder_map))
+			break ;
 		free(line);
 		free(holder);
 	}

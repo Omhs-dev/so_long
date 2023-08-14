@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:32:22 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/13 22:25:14 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/14 01:44:02 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../MLX42/include/MLX42/MLX42.h"
+# include "../MLX/include/MLX42/MLX42.h"
 
 # define WIDTH 500
 # define HEIGHT 500

@@ -6,7 +6,7 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 21:06:41 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/13 22:55:59 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/14 02:57:59 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int	main( int argc, char **argv)
 	if (check == 1)
 		return (ft_printf("Error\nPlease: use a valid map\n"));
 	play = start_game(argv[1]);
+	if (!play)
+	{
+		free(play);
+		exit(EXIT_FAILURE);
+	}
 	play->mlx = mlx_init((play->map_w - 1) * 60, (play->map_h) * 48, \
 	"So Long", false);
 	output_map(play);

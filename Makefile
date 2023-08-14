@@ -1,6 +1,8 @@
 NAME = so_long
 
-LIBFT = libft.a
+LIBFT = libraries/Libft/libft.a
+
+LIBFT_PATH = "libraries/Libft/"
 
 SRCS = main.c src/exit_game.c src/keypress.c \
 			src/output_elmts.c src/play_game.c src/read_map.c \
@@ -15,15 +17,15 @@ INCS	= -I ./include/
 
 CC = gcc
 
-FLAGS = -g -Wall -Wextra -Werror  MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/ohamadou/homebrew/opt/glfw/lib/" -fsanitize=address -static-libsan
+FLAGS = -g -Wall -Wextra -Werror  MLX/build/libmlx42.a -Iinclude -lglfw -L"/Users/ohamadou/homebrew/opt/glfw/lib/" -fsanitize=address -static-libsan
 
 OBJS = $(SRCS:.c=.o)
 
 OBJ_B = $(SRC_B:.c=.o)
 
 $(NAME):	$(OBJS)
-		@make all -C libraries/libft
-		@${CC} $(FLAGS) $(SRCS) libraries/LIBFT/$(LIBFT) -o ${NAME}
+		@make -C $(LIBFT_PATH)
+		@${CC} $(FLAGS) $(SRCS) $(LIBFT) -o ${NAME}
 # $(BONUS_NAME) : $(OBJ_B)
 # 		@${CC} $(FLAGS) $(SRC_B) -o checker
 
