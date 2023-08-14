@@ -6,18 +6,18 @@
 /*   By: ohamadou <ohamadou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 17:32:20 by ohamadou          #+#    #+#             */
-/*   Updated: 2023/08/02 18:37:38 by ohamadou         ###   ########.fr       */
+/*   Updated: 2023/08/13 22:12:33 by ohamadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void free_map(char **map)
+void	free_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (map[i] != '\0')
+	while (map[i])
 	{
 		free(map[i]);
 		i++;
@@ -25,10 +25,19 @@ void free_map(char **map)
 	free(map);
 }
 
-int exit_game(t_game *game)
-{
+void	exit_game(t_game *game)
+{	
+	mlx_delete_texture(game->player_t);
+	mlx_delete_texture(game->wall_t);
+	mlx_delete_texture(game->collect_t);
+	mlx_delete_image(game->mlx, game->player_img);
+	mlx_delete_image(game->mlx, game->wall_img);
+	if (game->collect_img)
+		mlx_delete_image(game->mlx, game->collect_img);
+	mlx_delete_texture(game->exit_t);
+	mlx_delete_image(game->mlx, game->exit_img);
 	free_map(game->map);
-	free(game->mlx);
-	exit(0);
-	return (0);
+	free_map(game->map_c);
+	mlx_terminate(game->mlx);
+	free(game);
 }
